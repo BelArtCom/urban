@@ -1,0 +1,6 @@
+my_string = input('Введите любое количество любых символов: ')
+print('Количество символов в строке:', len(my_string))
+print('Строка my_string в верхнем регистре:', my_string.upper())
+print('Строка my_string в нижнем регистре:', my_string.lower())
+print('Строка my_string с удалёнными пробелами:', my_string.replace(' ', ''))
+print('Последний символ строки my_string:', my_string[-1])
