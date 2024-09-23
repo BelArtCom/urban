@@ -1,8 +1,7 @@
-#from pprint import pprint
 class WordsFinder:
     def __init__(self, *files: list):
 # Формирую корректный список файлов
-# Обрабатываются различные варианты переданного параметра:
+# Обрабатываются различные варианты переданного параметра *files:
 # 'file1.txt', 'file2.txt', 'file3.txt'
 # 'file1.txt, file2.txt', 'file3.txt'
 # 'file1.txt, file2.txt, file3.txt'
@@ -19,7 +18,6 @@ class WordsFinder:
         self.file_names = file_names_str.split(',')
 
     def get_all_words(self):
-#        print('START get_all_words')
         all_words = {} # Словарь: ключ - название файла, значение - список из слов этого файла
 # Цикл перебирает имена файлов
         for file_name in self.file_names:
@@ -51,7 +49,6 @@ class WordsFinder:
         for key, value in all_words.items():
             result_dict[key] = value.index(word.lower()) + 1
         return result_dict
-        result_list = list()
 
     def count(self, word):
         result_dict = dict()  # Создаю пустой словарь для возврата результата
@@ -67,7 +64,6 @@ class WordsFinder:
 #finder2 = WordsFinder('file1.txt, file2.txt, file3.txt')
 
 finder2 = WordsFinder('test_file.txt')
-
 print(finder2.get_all_words()) # Все слова
 print(finder2.find('TEXT')) # 3 слово по счёту
 print(finder2.count('teXT')) # 4 слова teXT в тексте всего
