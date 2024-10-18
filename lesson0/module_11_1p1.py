@@ -1,4 +1,4 @@
-import requests, numpy as np, pandas as pd, matplotlib, datetime
+import requests, datetime
 
 '''
 ДЕМОНСТРАЦИЯ ПРИМИМНЕНИЯ БИБЛИОТЕКИ requests
