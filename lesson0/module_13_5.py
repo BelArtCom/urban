@@ -5,7 +5,7 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 # Token хранится в файле config.py
 from config import TOKEN
 
-# Задача "Цепочка вопросов"
+# Задача "Меньше текста, больше кликов"
 
 api = TOKEN
 bot = Bot(token=api)
