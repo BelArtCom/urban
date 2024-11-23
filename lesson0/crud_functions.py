@@ -26,6 +26,17 @@ def create_db():
     );
                    ''')
 
+    # Создание таблицы Users
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS Users(
+    id INTEGER PRIMARY KEY,
+    username TEXT NOT NULL,
+    email TEXT NOT NULL,
+    age INTEGER NOT NULL,
+    balance INTEGER NOT NULL
+    );
+                   ''')
+
     # Проверка заполненности таблицы
     cursor.execute('SELECT count(*) FROM Products')
     total_products = cursor.fetchone()[0]
@@ -35,6 +46,7 @@ def create_db():
     connection.close()
 
     return total_products
+
 
 def insert_data():
     # Подключение к БД
@@ -49,9 +61,9 @@ def insert_data():
             ['Витамин E', 'Замедляет старение клеток', 'Vit_E.webp'],
             ['Витамин Омега-3', 'Здоровье сердца и сосудов', 'Vit_Omega.webp']
         ]
-        cursor.execute('INSERT INTO Products (id, title, description, price, image) VALUES (?, ?, ?, ?, ?)',
-                       (f'{gen_id()}', f'{products[i][0]}', f'{products[i][1]}', f'{(i + 1) * 100}',
-                        f'{products[i][2]}'))
+        cursor.execute(f"INSERT INTO Products (id, title, description, price, image) VALUES ({gen_id()},"
+                       f"'{products[i][0]}', '{products[i][1]}', {(i + 1) * 100}, '{products[i][2]}')")
+
     # Отключение от БД
     connection.commit()
     connection.close()
@@ -65,7 +77,6 @@ def initiate_db():
 
 
 def get_all_products():
-
     # Создание и заполнение БД
     initiate_db()
 
@@ -82,3 +93,24 @@ def get_all_products():
     connection.close()
 
     return products
+
+
+def add_user(username, email, age):
+    # Подключение к БД
+    connection = sqlite3.connect('not_telegram.db')
+    cursor = connection.cursor()
+    cursor.execute(f"INSERT INTO Users (username, email, age, balance) VALUES ('{username}', '{email}', '{age}', 1000)")
+    connection.commit()
+    connection.close()
+
+
+def is_included(username):
+    # Подключение к БД
+    connection = sqlite3.connect('not_telegram.db')
+    cursor = connection.cursor()
+    cursor.execute(f"SELECT COUNT(*) FROM Users WHERE username = '{username}'")
+    user = cursor.fetchone()[0]
+    connection.commit()
+    connection.close()
+    # Использую неявное преобразование в булевы 'Истина' или 'Ложь' при наличии username в таблице
+    return user
